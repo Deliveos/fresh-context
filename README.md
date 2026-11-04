@@ -76,6 +76,7 @@ Knowledge lives outside the repo, so it never ends up in a team repo, survives `
 
 ## Notes
 
+- **Windows:** supported. Claude Code runs the skills' shell commands in Git Bash, which it already requires on Windows.
 - **The session-start reminder needs `node` on your PATH.** Without it the skills still work; you just run `restore-context` yourself.
 - **First semantic search downloads the model (~2 GB)** to `~/.cache/fastembed`; later calls take about a second. For a smaller model, set `FRESH_CONTEXT_MODEL` (any [fastembed text model](https://qdrant.github.io/fastembed/examples/Supported_Models/)), e.g. `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
 - **Background / auto-mode Claude Code sessions** need write access outside the repo. Add to `~/.claude/settings.json`:

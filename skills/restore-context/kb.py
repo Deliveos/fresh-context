@@ -49,11 +49,11 @@ def reindex(db):
     known = dict(db.execute("select path, sha from files"))
     seen = set()
     for f in ROOT.rglob("*.md"):
-        rel = str(f.relative_to(ROOT))
+        rel = f.relative_to(ROOT).as_posix()  # same key on Windows, matches the "repo/%" filter
         if rel.startswith("."):
             continue
         seen.add(rel)
-        text = f.read_text(errors="replace")
+        text = f.read_text(encoding="utf-8", errors="replace")
         sha = hashlib.sha1(text.encode()).hexdigest()
         if known.get(rel) == sha:
             continue
@@ -72,11 +72,14 @@ def reindex(db):
 
 def search(query, repo=None, k=8):
     db = sqlite3.connect(ROOT / ".index.sqlite")
-    reindex(db)
-    sql, args = "select path, section, body, vec from chunks", ()
-    if repo:
-        sql, args = sql + " where path like ?", (repo + "/%",)
-    rows = db.execute(sql, args).fetchall()
+    try:
+        reindex(db)
+        sql, args = "select path, section, body, vec from chunks", ()
+        if repo:
+            sql, args = sql + " where path like ?", (repo + "/%",)
+        rows = db.execute(sql, args).fetchall()
+    finally:
+        db.close()  # Windows can't delete an open db file
     if not rows:
         return []
     m = np.stack([np.frombuffer(r[3], dtype=np.float32) for r in rows])
@@ -88,7 +91,7 @@ def current_repo():
     try:
         top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True)
         return Path(top.stdout.strip()).name
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return None
 
 
@@ -101,8 +104,12 @@ def selftest():
             "## Purpose\nIssues JWT access tokens and refreshes them when the API returns 401.\n")
         (ROOT / "r/architecture/pdf.md").write_text(
             "## Purpose\nRenders invoices to PDF files and stores them in S3.\n")
+        (ROOT / "r/architecture/queue.md").write_text(
+            "## Назначение\nОчередь фоновых задач: повторные попытки отправки писем.\n", encoding="utf-8")
         top = search("how is the auth token refreshed", repo="r", k=1)
         assert top[0][1] == "r/architecture/auth.md", top
+        top = search("background job queue for emails", repo="r", k=1)
+        assert top[0][1:3] == ("r/architecture/queue.md", "Назначение"), top
         (ROOT / "r/architecture/pdf.md").unlink()
         assert all(p != "r/architecture/pdf.md" for _, p, *_ in search("PDF", k=5)), "deleted file is still in the index"
     print("selftest ok")
@@ -118,6 +125,7 @@ def main():
     s.add_argument("-k", type=int, default=8)
     sub.add_parser("selftest")
     a = ap.parse_args()
+    sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to a legacy code page
     if a.cmd == "selftest":
         return selftest()
     repo = None if a.all else (a.repo or current_repo())
