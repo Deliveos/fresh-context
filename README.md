@@ -79,10 +79,18 @@ Knowledge lives outside the repo, so it never ends up in a team repo, survives `
 - **Windows:** supported. Claude Code runs the skills' shell commands in Git Bash, which it already requires on Windows.
 - **The session-start reminder needs `node` on your PATH.** Without it the skills still work; you just run `restore-context` yourself.
 - **First semantic search downloads the model (~2 GB)** to `~/.cache/fastembed`; later calls take about a second. For a smaller model, set `FRESH_CONTEXT_MODEL` (any [fastembed text model](https://qdrant.github.io/fastembed/examples/Supported_Models/)), e.g. `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
-- **Background / auto-mode Claude Code sessions** need write access outside the repo. Add to `~/.claude/settings.json`:
+- **Background / auto-mode Claude Code sessions** need write access outside the repo. Add this to your user settings: `~/.claude/settings.json` on Linux and macOS, `%USERPROFILE%\.claude\settings.json` on Windows.
   ```json
-  { "permissions": { "additionalDirectories": ["/home/<you>/.knowledge"] } }
+  { "permissions": { "additionalDirectories": ["~/.knowledge"] } }
   ```
+  If `~` isn't expanded on your system, use the absolute path instead:
+
+  | OS | Value |
+  | --- | --- |
+  | Linux | `"/home/<you>/.knowledge"` |
+  | macOS | `"/Users/<you>/.knowledge"` |
+  | Windows | `"C:/Users/<you>/.knowledge"` (forward slashes, or escape each backslash: `"C:\\Users\\<you>\\.knowledge"`) |
+
 - **Base branch.** `index.md` starts with `base: <ref>`, auto-detected from `origin/HEAD`. Edit it if your team integrates elsewhere (e.g. `origin/develop`).
 - **With your own orchestrator / task runner:** if one session interviews and another implements, have the first one save the brief to `~/.knowledge/<repo>/tasks/<ID>.md` under `## Brief`. Put `restore-context <ID>` as the first step and `save-context <ID>` as the last step of the implementer's brief.
 
