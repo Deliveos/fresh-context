@@ -1,6 +1,6 @@
 {
   "name": "fresh-context",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Per-repo project knowledge that knows when it's stale, verified against git.",
   "contextFileName": "AGENTS.md"
 }

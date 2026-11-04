@@ -1,12 +1,22 @@
 {
   "name": "fresh-context",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Per-repo project knowledge that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
-  "author": { "name": "Deliveos", "url": "https://github.com/Deliveos" },
+  "author": {
+    "name": "Deliveos",
+    "url": "https://github.com/Deliveos"
+  },
   "homepage": "https://github.com/Deliveos/fresh-context",
   "repository": "https://github.com/Deliveos/fresh-context",
   "license": "MIT",
-  "keywords": ["memory", "context", "knowledge", "git", "tokens", "skills"],
+  "keywords": [
+    "memory",
+    "context",
+    "knowledge",
+    "git",
+    "tokens",
+    "skills"
+  ],
   "skills": "./skills/",
   "hooks": "./hooks/hooks.json",
   "interface": {
@@ -15,9 +25,15 @@
     "longDescription": "Per-repo project knowledge that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
     "developerName": "Deliveos",
     "category": "Productivity",
-    "capabilities": ["Instructions", "Lifecycle hooks"],
+    "capabilities": [
+      "Instructions",
+      "Lifecycle hooks"
+    ],
     "websiteURL": "https://github.com/Deliveos/fresh-context",
-    "defaultPrompt": ["Restore context for this repo.", "Save context for this task."],
+    "defaultPrompt": [
+      "Restore context for this repo.",
+      "Save context for this task."
+    ],
     "brandColor": "#141414",
     "composerIcon": "./.claude-plugin/icon.png",
     "logo": "./.claude-plugin/icon.png"
