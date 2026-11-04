@@ -1,0 +1,16 @@
+{
+  "name": "fresh-context",
+  "description": "Per-repo project knowledge for Claude Code, verified against git before it is trusted.",
+  "owner": {
+    "name": "Deliveos",
+    "url": "https://github.com/Deliveos"
+  },
+  "plugins": [
+    {
+      "name": "fresh-context",
+      "description": "Per-repo project knowledge that is verified against git before the agent trusts it.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
