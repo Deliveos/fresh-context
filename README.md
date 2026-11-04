@@ -85,6 +85,10 @@ Knowledge lives outside the repo, so it never ends up in a team repo, survives `
 - **Base branch.** `index.md` starts with `base: <ref>`, auto-detected from `origin/HEAD`. Edit it if your team integrates elsewhere (e.g. `origin/develop`).
 - **With your own orchestrator / task runner:** if one session interviews and another implements, have the first one save the brief to `~/.knowledge/<repo>/tasks/<ID>.md` under `## Brief`. Put `restore-context <ID>` as the first step and `save-context <ID>` as the last step of the implementer's brief.
 
+## Privacy
+
+Everything stays on your machine; nothing is sent anywhere. See [PRIVACY.md](PRIVACY.md).
+
 ## License
 
 MIT
