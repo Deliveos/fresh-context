@@ -1,16 +1,17 @@
 // Nudge the agent to restore knowledge when this repo has some. Silent otherwise.
-import { execFileSync } from 'node:child_process';
+// Finds the git root by walking up to the nearest .git (dir, or file in worktrees),
+// without spawning git, so the hook stays a single readable file.
 import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { basename, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 
-let top;
-try {
-  top = execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-} catch {
-  process.exit(0); // not a git repo, or git missing
+let dir = process.cwd();
+while (!existsSync(join(dir, '.git'))) {
+  const up = dirname(dir);
+  if (up === dir) process.exit(0); // not inside a git repo
+  dir = up;
 }
-const dir = join(homedir(), '.knowledge', basename(top));
-if (existsSync(join(dir, 'index.md'))) {
-  console.log(`fresh-context: project knowledge for this repo exists at ${dir}. Before exploring the codebase, run the restore-context skill (fresh-context plugin).`);
+const knowledge = join(homedir(), '.knowledge', basename(dir));
+if (existsSync(join(knowledge, 'index.md'))) {
+  console.log(`fresh-context: project knowledge for this repo exists at ${knowledge}. Before exploring the codebase, run the restore-context skill (fresh-context plugin).`);
 }

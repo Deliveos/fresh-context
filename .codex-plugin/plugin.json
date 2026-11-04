@@ -1,6 +1,6 @@
 {
   "name": "fresh-context",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Per-repo project knowledge that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
   "author": {
     "name": "Deliveos",
