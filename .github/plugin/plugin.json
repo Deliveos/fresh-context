@@ -1,0 +1,11 @@
+{
+  "name": "fresh-context",
+  "description": "Per-repo project knowledge that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
+  "version": "0.2.0",
+  "author": { "name": "Deliveos", "url": "https://github.com/Deliveos" },
+  "homepage": "https://github.com/Deliveos/fresh-context",
+  "repository": "https://github.com/Deliveos/fresh-context",
+  "license": "MIT",
+  "keywords": ["memory", "context", "knowledge", "git", "tokens", "skills"],
+  "skills": "skills/"
+}

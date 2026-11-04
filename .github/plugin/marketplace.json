@@ -1,0 +1,15 @@
+{
+  "name": "fresh-context",
+  "description": "Per-repo project knowledge for AI coding agents, verified against git before it is trusted.",
+  "owner": { "name": "Deliveos", "url": "https://github.com/Deliveos" },
+  "plugins": [
+    {
+      "name": "fresh-context",
+      "description": "Git-verified project memory: save-context and restore-context skills.",
+      "source": "./",
+      "category": "productivity",
+      "tags": ["memory", "context", "knowledge", "git", "tokens", "skills"],
+      "skills": "skills/"
+    }
+  ]
+}

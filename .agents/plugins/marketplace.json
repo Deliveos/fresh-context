@@ -1,0 +1,12 @@
+{
+  "name": "fresh-context",
+  "interface": { "displayName": "fresh-context" },
+  "plugins": [
+    {
+      "name": "fresh-context",
+      "source": { "source": "url", "url": "https://github.com/Deliveos/fresh-context.git", "ref": "main" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

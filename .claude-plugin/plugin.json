@@ -1,7 +1,7 @@
 {
   "name": "fresh-context",
-  "version": "0.1.0",
-  "description": "Per-repo project knowledge for Claude Code that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
+  "version": "0.2.0",
+  "description": "Per-repo project knowledge for AI coding agents that knows when it's stale: save what a task taught the agent, restore only the relevant parts next time, verified against git.",
   "author": { "name": "Deliveos", "url": "https://github.com/Deliveos" },
   "repository": "https://github.com/Deliveos/fresh-context",
   "license": "MIT",

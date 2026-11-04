@@ -1,5 +1,5 @@
 ---
-name: save
+name: save-context
 description: Save what this task taught the agent into ~/.knowledge/<repo>/ - implementation, decisions, rejected alternatives, test results and any architecture it had to figure out - so the next session does not re-explore the project. Use at the end of a task before the final report, when a brief says so, or when the user asks to save context. Argument - task ID.
 ---
 
@@ -53,4 +53,4 @@ Write only what saves the next session work. No conversation retelling, no raw l
    git -C ~/.knowledge add -A && git -C ~/.knowledge commit -qm "<repo> <ID>: <summary>"
    ```
 
-The search index rebuilds itself on the next `restore`.
+The search index rebuilds itself on the next `restore-context`.
